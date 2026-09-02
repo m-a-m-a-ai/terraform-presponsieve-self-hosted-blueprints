@@ -1,0 +1,14 @@
+# Default owners for everything in this repository.
+*                       @m-a-m-a-ai/platform
+
+# Cloud-specific modules.
+/modules/aws-*          @m-a-m-a-ai/platform
+/modules/gcp-*          @m-a-m-a-ai/platform
+/modules/azure-*        @m-a-m-a-ai/platform
+
+# The Helm interface is the product contract. Changes here affect every customer.
+/modules/presponsieve-helm/  @m-a-m-a-ai/platform @m-a-m-a-ai/product
+
+# Customer-facing prose.
+/README.md              @m-a-m-a-ai/docs
+/guides/                @m-a-m-a-ai/docs
