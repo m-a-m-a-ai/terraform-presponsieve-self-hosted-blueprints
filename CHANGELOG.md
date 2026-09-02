@@ -10,7 +10,7 @@ blueprints, not the application.
 
 - Module set for GCP, AWS, and Azure.
 - Cloud-agnostic `presponsieve-helm` module wrapping the published chart at
-  `oci://ghcr.io/m-a-m-a-ai/charts/presponsieve`.
+  `oci://ghcr.io/m-a-m-a-ai/charts/presponsievelite`.
 - `existing_cluster` example for platform-team-owned clusters.
 - GCP path uses Cloud SQL IAM database authentication through the Auth Proxy
   sidecar, so no database password exists anywhere in the deployment.

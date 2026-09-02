@@ -43,7 +43,7 @@ variable "chart_repository" {
 variable "chart_name" {
   description = "Chart name."
   type        = string
-  default     = "presponsieve"
+  default     = "presponsievelite"
 }
 
 variable "chart_version" {
@@ -63,7 +63,7 @@ variable "image_repository" {
     <REGION>-docker.pkg.dev/<PROJECT>/<REPO>/presponsieve.
   EOT
   type        = string
-  default     = "ghcr.io/m-a-m-a-ai/presponsieve"
+  default     = "ghcr.io/m-a-m-a-ai/presponsievelite"
 }
 
 variable "image_tag" {

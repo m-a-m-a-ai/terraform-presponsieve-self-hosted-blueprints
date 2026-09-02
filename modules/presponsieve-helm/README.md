@@ -1,7 +1,7 @@
 # presponsieve-helm
 
 Cloud-agnostic module that installs the Presponsieve chart from
-`oci://ghcr.io/m-a-m-a-ai/charts/presponsieve`.
+`oci://ghcr.io/m-a-m-a-ai/charts/presponsievelite`.
 
 It provisions no infrastructure. It assumes a reachable cluster, a Postgres
 instance, an object storage bucket, and a Kubernetes secret holding the
