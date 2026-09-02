@@ -1,11 +1,11 @@
 # Presponsieve self-hosted blueprints
 
 Terraform modules and worked examples for deploying
-[Presponsieve](https://github.com/m-a-m-a-ai/presponsieve-selfhosted)
+[Presponsieve](https://github.com/m-a-m-a-ai/presponsievelite-selfhosted)
 into your own cloud account. GKE, EKS, and a generic path for everything else.
 
 These blueprints provision infrastructure and then install the published chart
-from `oci://ghcr.io/m-a-m-a-ai/charts/presponsieve`. The chart itself, and
+from `oci://ghcr.io/m-a-m-a-ai/charts/presponsievelite`. The chart itself, and
 its own documentation, live in the self-hosting repository.
 
 ## What gets deployed
@@ -118,4 +118,4 @@ back.
 
 Issues with these blueprints belong in this repository. Questions about the
 application or the chart belong in
-[`presponsieve-selfhosted`](https://github.com/m-a-m-a-ai/presponsieve-selfhosted).
+[`presponsievelite-selfhosted`](https://github.com/m-a-m-a-ai/presponsievelite-selfhosted).
