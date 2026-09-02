@@ -1,0 +1,10 @@
+Presponsieve self-hosted blueprints
+Copyright 2026 M.A.M.A.AI, Inc.
+
+The Terraform configuration in this repository is licensed under the
+Apache License, Version 2.0.
+
+Presponsieve itself is commercial software and is NOT covered by that
+license. Running it requires a valid license from M.A.M.A.AI, Inc.
+The container image and Helm chart referenced by these blueprints are
+distributed under separate commercial terms.
