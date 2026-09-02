@@ -227,9 +227,10 @@ variable "kms_backend" {
 
 variable "license_public_key" {
   description = <<-EOT
-    Base64 Ed25519 public key that verifies your license token. Published with
-    each release. Leaving it blank disables the license gate entirely, which is
-    a development configuration.
+    Base64 Ed25519 public key that verifies your license token. Copy it from
+    your dashboard at presponsieve.ai/dashboard, alongside the token. Leaving it
+    blank disables the license gate entirely, which is a development
+    configuration.
   EOT
   type        = string
   default     = ""

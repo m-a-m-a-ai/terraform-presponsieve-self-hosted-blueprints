@@ -6,8 +6,10 @@ purchased separately.
 ## How the gate works
 
 The license is an Ed25519-signed token. `LICENSE_PUBLIC_KEY` in the chart's
-config holds the base64 public key that verifies it; the key is published with
-each release. Verification is a local signature check.
+config holds the base64 public key that verifies it. Both the token and the
+public key come from your dashboard at presponsieve.ai/dashboard, reached by a
+single-use sign-in link sent to the email the license was issued against.
+Verification is a local signature check.
 
 `LICENSE_ENFORCEMENT` selects the behaviour:
 
@@ -34,9 +36,15 @@ function.
 
 ## Revocation
 
-`LICENSE_VALIDATION_URL` is optional. Set it and the app periodically checks
-whether the license has been revoked. Leave it blank and validation is entirely
-offline, with no egress at any point.
+`LICENSE_VALIDATION_URL` is optional. Set it to
+`https://presponsieve.ai/validate` and the app polls every
+`LICENSE_REFRESH_INTERVAL_HOURS`, default 12, to learn whether the license has
+been revoked. Leave it blank and validation is entirely offline, with no egress
+at any point.
+
+Revocation is learned on the next poll, lives in pod memory, and is cleared by
+a restart until the poll after that. Only expiry survives a restart. It is a
+commercial lever, not a kill switch.
 
 Offline is the default. Consider revocation checks only if your commercial terms
 need them, and be aware they introduce a runtime dependency that offline
