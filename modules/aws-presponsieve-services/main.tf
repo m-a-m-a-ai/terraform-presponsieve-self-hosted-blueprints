@@ -5,6 +5,18 @@ data "aws_caller_identity" "current" {}
 # Report artifact storage
 # ---------------------------------------------------------------------------
 
+resource "aws_kms_key" "artifacts" {
+  description             = "Encryption at rest for ${var.prefix} report artifacts."
+  enable_key_rotation     = true
+  deletion_window_in_days = 30
+  tags                    = var.tags
+}
+
+resource "aws_kms_alias" "artifacts" {
+  name          = "alias/${var.prefix}-artifacts"
+  target_key_id = aws_kms_key.artifacts.key_id
+}
+
 resource "aws_s3_bucket" "artifacts" {
   bucket = "${var.prefix}-artifacts"
   tags   = var.tags
@@ -23,7 +35,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.artifacts.arn
     }
     bucket_key_enabled = true
   }
@@ -104,15 +117,23 @@ resource "aws_iam_role_policy" "app" {
 
   policy = jsonencode({
     Version = "2012-10-17"
-    Statement = [{
-      Sid    = "ManageArtifacts"
-      Effect = "Allow"
-      Action = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject", "s3:ListBucket"]
-      Resource = [
-        aws_s3_bucket.artifacts.arn,
-        "${aws_s3_bucket.artifacts.arn}/*",
-      ]
-    }]
+    Statement = [
+      {
+        Sid    = "ManageArtifacts"
+        Effect = "Allow"
+        Action = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject", "s3:ListBucket"]
+        Resource = [
+          aws_s3_bucket.artifacts.arn,
+          "${aws_s3_bucket.artifacts.arn}/*",
+        ]
+      },
+      {
+        Sid      = "UseArtifactsKey"
+        Effect   = "Allow"
+        Action   = ["kms:Decrypt", "kms:Encrypt", "kms:GenerateDataKey", "kms:DescribeKey"]
+        Resource = [aws_kms_key.artifacts.arn]
+      },
+    ]
   })
 }
 

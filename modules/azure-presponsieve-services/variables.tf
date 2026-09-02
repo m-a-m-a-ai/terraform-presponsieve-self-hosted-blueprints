@@ -30,6 +30,16 @@ variable "oidc_issuer_url" {
   type        = string
 }
 
+variable "vnet_id" {
+  description = "VNet the private endpoint DNS zone is linked to."
+  type        = string
+}
+
+variable "nodes_subnet_id" {
+  description = "Subnet the storage private endpoint is placed in."
+  type        = string
+}
+
 variable "tenant_id" {
   description = "Entra ID tenant."
   type        = string

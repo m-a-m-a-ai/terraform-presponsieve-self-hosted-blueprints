@@ -1,0 +1,6 @@
+# AWS-0104: unrestricted egress on the EKS control-plane security group.
+# The control plane must reach the AWS API, the container registry, and the
+# node ENIs. Restricting its egress is not supported by EKS and would break
+# cluster operation. Node and workload egress are governed separately by
+# Kubernetes NetworkPolicy; see guides/networking.md.
+AVD-AWS-0104

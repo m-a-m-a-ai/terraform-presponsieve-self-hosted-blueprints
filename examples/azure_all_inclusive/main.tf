@@ -86,6 +86,8 @@ module "services" {
   tenant_id           = local.tenant_id
 
   oidc_issuer_url = module.aks.oidc_issuer_url
+  vnet_id         = module.vnet.vnet_id
+  nodes_subnet_id = module.vnet.nodes_subnet_id
 
   tags = local.tags
 }

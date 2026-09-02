@@ -25,23 +25,6 @@ variable "dns_zone_name" {
   default     = null
 }
 
-variable "iap_oauth_client_id" {
-  description = <<-EOT
-    OAuth client ID for Identity-Aware Proxy. Create the client by hand in the
-    console; Google does not expose brand or client creation for internal
-    OAuth consent screens through Terraform in every configuration.
-  EOT
-  type        = string
-  default     = null
-}
-
-variable "iap_oauth_client_secret" {
-  description = "OAuth client secret for IAP. Written to a Kubernetes secret by the services module."
-  type        = string
-  default     = null
-  sensitive   = true
-}
-
 variable "labels" {
   description = "Labels applied to created resources."
   type        = map(string)

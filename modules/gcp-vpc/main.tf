@@ -43,6 +43,10 @@ resource "google_compute_router" "this" {
   network = google_compute_network.this.id
 }
 
+# Compute networks and routers do not take labels. Applied to the reserved
+# peering range, which does, so the variable is not dead.
+
+
 resource "google_compute_router_nat" "this" {
   project                            = var.project_id
   name                               = "${var.prefix}-nat"
@@ -65,6 +69,7 @@ resource "google_compute_global_address" "private_service_access" {
   address_type  = "INTERNAL"
   prefix_length = 20
   network       = google_compute_network.this.id
+  labels        = var.labels
 }
 
 resource "google_service_networking_connection" "this" {

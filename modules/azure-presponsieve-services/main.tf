@@ -101,6 +101,46 @@ resource "azurerm_storage_account" "artifacts" {
       days = 30
     }
   }
+
+  # Public network access denied. The workload reaches the account through the
+  # private endpoint below, which resolves inside the VNet.
+  network_rules {
+    default_action = "Deny"
+    bypass         = ["AzureServices"]
+  }
+}
+
+resource "azurerm_private_dns_zone" "blob" {
+  name                = "privatelink.blob.core.windows.net"
+  resource_group_name = var.resource_group_name
+  tags                = var.tags
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "blob" {
+  name                = "${var.prefix}-blob-link"
+  private_dns_zone_id = azurerm_private_dns_zone.blob.id
+  virtual_network_id  = var.vnet_id
+  tags                = var.tags
+}
+
+resource "azurerm_private_endpoint" "blob" {
+  name                = "${var.prefix}-blob-pe"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  subnet_id           = var.nodes_subnet_id
+  tags                = var.tags
+
+  private_service_connection {
+    name                           = "${var.prefix}-blob"
+    private_connection_resource_id = azurerm_storage_account.artifacts.id
+    subresource_names              = ["blob"]
+    is_manual_connection           = false
+  }
+
+  private_dns_zone_group {
+    name                 = "blob"
+    private_dns_zone_ids = [azurerm_private_dns_zone.blob.id]
+  }
 }
 
 resource "azurerm_storage_container" "artifacts" {
