@@ -4,3 +4,11 @@
 # cluster operation. Node and workload egress are governed separately by
 # Kubernetes NetworkPolicy; see guides/networking.md.
 AVD-AWS-0104
+
+# AZU-0041: AKS API server not limited to specific IPs.
+# Trivy scans the module in isolation, where authorized_ip_ranges is an
+# input variable with no default, and it cannot evaluate the validation block
+# on that variable. That block rejects an empty list at plan time, so a
+# deployment with an open API server cannot be applied from these modules.
+# See modules/azure-aks/variables.tf.
+AVD-AZU-0041
